@@ -1,0 +1,32 @@
+.custom-add-to-cart-btn {
+    background-color: white;
+    color: #260F08; 
+    border: 1px solid #87635A; 
+    border-radius: 30px; 
+    padding: 8px 20px; 
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: border-color 0.3s ease, color 0.3s ease;
+    width: 180px;
+    height: 44px;
+    justify-content: center;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .custom-add-to-cart-btn .icon {
+    width: 16px; 
+    height: 16px;
+    margin-right: 8px; 
+  }
+  
+  .custom-add-to-cart-btn:hover {
+    color: #C73B0F; 
+    border-color: #C73B0F; 
+  }
+  

@@ -1,0 +1,40 @@
+.quantity-selector {
+    background-color: #C73B0F; 
+    color: white; 
+    border-radius: 30px; 
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 188px; 
+    height: 44px; 
+  }
+  
+  .qty-btn {
+    background-color: transparent;
+    border: 2px solid white;
+    width: 30px; 
+    height: 30px; 
+    border-radius: 17px; 
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .qty-btn .icon {
+    width: 12px; 
+    height: 12px;
+    fill: white; 
+  }
+  
+  .quantity {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin: 0 10px; 
+    text-align: center;
+    line-height: 44px; 
+  }
+  
