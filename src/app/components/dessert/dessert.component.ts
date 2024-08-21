@@ -28,6 +28,7 @@ export class DessertComponent {
   selectedItemId$: Observable<number | null>;
   cartItemsCount$: Observable<number>;  
 
+
   constructor(private store: Store) {
     this.cartItems$ = this.store.select(selectCartItems);
     this.selectedItemId$ = this.store.select(selectSelectedItem);

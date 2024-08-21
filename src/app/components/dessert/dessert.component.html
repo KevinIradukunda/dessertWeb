@@ -35,9 +35,12 @@
         <div class="card">
           <div class="card-body text-center">
             <h4 class="cart-titles">Your Cart ({{ cartItemsCount$ | async }})</h4>
-            <img src="assets/images/cartcake.svg" alt="Empty Cart" class="img-fluid">
-            <p class="cart-text">Your added items will appear here</p>
+            <!-- <img src="assets/images/cartcake.svg" alt="Empty Cart" class="img-fluid">
+            <p class="cart-text">Your added items will appear here</p> -->
+            <app-cart [cartItems$]="cartItems$"></app-cart>
           </div>
+          
+
         </div>
       </div>
     </div>

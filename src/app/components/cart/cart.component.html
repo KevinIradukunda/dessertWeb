@@ -1,0 +1,35 @@
+<div class="cart-container">    
+    <ul class="cart-items-list">
+      <li *ngFor="let item of cartItems$ | async" class="cart-item">
+        <div class="item-details">
+            <span class="item-name">{{ getItemName(item.id) }}</span>
+            <div class="try">
+            <div class="cartpriceinfo"> 
+            
+            <span class="item-quantity">{{ item.quantity }}x</span>
+            <span class="item-price">{{ getItemPrice(item.id) }}</span>
+            </div>
+            <app-remove-button (click)="removeItem(item.id)"></app-remove-button>
+            </div>
+        </div>
+       
+        <span class="item-total">{{ calculateItemTotal(item) | currency }}</span><br>
+      
+        
+      </li>
+      
+    </ul>
+    
+    <div class="cart-summary">
+      <span>Order Total</span>
+      <span class="order-total">{{ cartTotals$ | async | currency }}</span>
+    </div>
+    
+    <div class="carbon-neutral">
+      <img src="assets/images/icon-carbon-neutral.svg" alt="Carbon Neutral">
+      <span>This is a carbon-neutral delivery</span>
+    </div>
+    
+    <button class="confirm-order-btn">Confirm Order</button>
+  </div>
+  
