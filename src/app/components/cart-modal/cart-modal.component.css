@@ -1,0 +1,81 @@
+.modal-content {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    border-bottom: none;
+    text-align: center;
+  }
+  
+  .modal-header-content {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .checkmark-icon {
+    width: 40px;
+    margin-bottom: 15px;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    color: #260F08;
+    font-weight: bold;
+  }
+  
+  .modal-header p {
+    margin-top: 5px;
+    color: #757575;
+  }
+  
+  .item-details {
+    display: flex;
+    align-items: center;
+  }
+  
+  .item-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  
+  .item-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .item-info span {
+    font-size: 14px;
+    color: #260F08;
+  }
+  
+  .item-total {
+    font-weight: bold;
+    color: #260F08;
+  }
+  
+  .order-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #C73B0F;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #a8350a;
+  }
+  

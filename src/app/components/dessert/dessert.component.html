@@ -35,9 +35,18 @@
         <div class="card">
           <div class="card-body text-center">
             <h4 class="cart-titles">Your Cart ({{ cartItemsCount$ | async }})</h4>
-            <!-- <img src="assets/images/cartcake.svg" alt="Empty Cart" class="img-fluid">
-            <p class="cart-text">Your added items will appear here</p> -->
-            <app-cart [cartItems$]="cartItems$"></app-cart>
+
+            <div *ngIf="(cartItemsCount$ | async) === 0; else appCart">
+                
+                <img src="assets/images/cartcake.svg" alt="Empty Cart" class="img-fluid">
+                <p class="cart-text">Your added items will appear here</p>
+              </div>
+              
+              
+              <ng-template #appCart>
+                <app-cart [cartItems$]="cartItems$" [cartTotals$]="cartTotals$"></app-cart>
+              </ng-template>
+             
           </div>
           
 

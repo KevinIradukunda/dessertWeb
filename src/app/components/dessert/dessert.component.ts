@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { selectCartItemQuantity, selectCartItems,selectSelectedItem } from '../../store/cart.selectors';
+import { selectCartItemQuantity, selectCartItems, selectSelectedItem } from '../../store/cart.selectors';
 import { addItemToCart, clearSelectedItem, decreaseItemQuantity, increaseItemQuantity, removeItemFromCart } from '../../store/cart.actions';
 
 @Component({
@@ -15,7 +15,7 @@ export class DessertComponent {
   desserts = [
     { id: 1, name: 'Waffle with Berries', description: 'Waffle', price: '$6.50', image: '/assets/images/image-waffle-desktop.jpg' },
     { id: 2, name: 'Vanilla Bean Crème Brûlée', description: 'Crème Brûlée', price: '$7.00', image: 'assets/images/image-creme-brulee-desktop.jpg' },
-    {id: 3,  name: 'Macaron Mix of Five', description: 'Macaron', price: '$8.00', image: 'assets/images/image-macaron-desktop.jpg' },
+    { id: 3, name: 'Macaron Mix of Five', description: 'Macaron', price: '$8.00', image: 'assets/images/image-macaron-desktop.jpg' },
     { id: 4, name: 'Classic Tiramisu', description: 'Tiramisu', price: '$5.50', image: 'assets/images/image-tiramisu-desktop.jpg' },
     { id: 5, name: 'Pistachio Baklava', description: 'Baklava', price: '$4.00', image: 'assets/images/baklava.jpg' },
     { id: 6, name: 'Lemon Meringue Pie', description: 'Pie', price: '$5.00', image: 'assets/images/image-meringue-desktop.jpg' },
@@ -26,8 +26,9 @@ export class DessertComponent {
   
   cartItems$: Observable<any[]>;
   selectedItemId$: Observable<number | null>;
-  cartItemsCount$: Observable<number>;  
-
+  cartItemsCount$: Observable<number>;
+  cartTotals$: Observable<number>;
+  showModal: boolean = false; 
 
   constructor(private store: Store) {
     this.cartItems$ = this.store.select(selectCartItems);
@@ -35,8 +36,30 @@ export class DessertComponent {
     this.cartItemsCount$ = this.cartItems$.pipe(
       map(items => items.length)
     );
+    this.cartTotals$ = this.cartItems$.pipe(
+      map(items =>
+        items.reduce(
+          (total, item) => total + item.quantity * this.getItemPrice(item.id),
+          0
+        )
+      )
+    );
+  }
+  
+  ngOnInit() {
+    this.cartItems$.subscribe(items => console.log('Cart Items:', items));
+    this.cartItemsCount$.subscribe(count => console.log('Cart Items Count:', count));
   }
 
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
+
+  getItemPrice(itemId: number): number {
+    const item = this.desserts.find(d => d.id === itemId);
+    return item ? parseFloat(item.price.substring(1)) : 0;
+  }
+  
   isItemInCart(itemId: number): Observable<boolean> {
     return this.store.select(selectCartItemQuantity(itemId)).pipe(
       map(quantity => quantity > 0)
@@ -73,11 +96,9 @@ export class DessertComponent {
       this.removeFromCart(itemId);
     }
   }
+
   removeFromCart(itemId: number) {
     this.store.dispatch(removeItemFromCart({ itemId }));
     this.store.dispatch(clearSelectedItem());
   }
-
-
-
 }

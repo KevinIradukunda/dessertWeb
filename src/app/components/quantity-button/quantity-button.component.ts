@@ -17,7 +17,7 @@ export class QuantityButtonComponent {
 
   decreaseQuantity() {
     console.log('Decrement button clicked'); 
-    if (this.quantity > 0) {  
+    if (this.quantity > 1) {  
       this.quantity--;
       console.log('Quantity after decrement:', this.quantity); 
       this.quantityChange.emit(this.quantity);  

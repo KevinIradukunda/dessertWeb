@@ -1,0 +1,35 @@
+<div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-labelledby="orderConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-header-content">
+            <img src="assets/images/icon-checkmark.svg" alt="Success" class="checkmark-icon">
+            <h5 class="modal-title" id="orderConfirmationModalLabel">Order Confirmed</h5>
+            <p>We hope you enjoy your food!</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group">
+            <li *ngFor="let item of cartItems$ | async" class="list-group-item d-flex justify-content-between align-items-center">
+              <div class="item-details">
+                <img [src]="getItemImage(item.id)" alt="{{ getItemName(item.id) }}" class="item-image">
+                <div class="item-info">
+                  <span>{{ getItemName(item.id) }}</span>
+                  <span>{{ item.quantity }}x {{ getItemPrice(item.id) | currency }}</span>
+                </div>
+              </div>
+              <span class="item-total">{{ calculateItemTotal(item) | currency }}</span>
+            </li>
+          </ul>
+          <div class="modal-footer">
+            <div class="order-total">
+              <span>Order Total</span>
+              <span>{{ cartTotals$ | async | currency }}</span>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Start New Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

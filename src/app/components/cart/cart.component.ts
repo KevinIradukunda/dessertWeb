@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CartItem } from '../../store/cart.reducer';
-import { removeItemFromCart } from '../../store/cart.actions';
+import { decreaseItemQuantity, increaseItemQuantity, removeItemFromCart } from '../../store/cart.actions';
 import { Store } from '@ngrx/store';
+import { selectCartItems, selectCartTotal } from '../../store/cart.selectors';
 
 @Component({
   selector: 'app-cart',
@@ -12,16 +13,33 @@ import { Store } from '@ngrx/store';
 export class CartComponent {
 
   @Input() cartItems$: Observable<CartItem[]> = of([]); 
-  @Input() cartTotals$: Observable<number> = of(0);    
+  @Input() cartTotals$: Observable<number>;  
+  showModal: boolean = false;  
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.cartItems$ = this.store.select(selectCartItems);
+    this.cartTotals$ = this.store.select(selectCartTotal);
+  }
 
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
+  updateQuantity(itemId: number, quantity: number) {
+    if (quantity > 0) {
+      this.store.dispatch(increaseItemQuantity({ itemId }));
+    } else {
+      this.store.dispatch(decreaseItemQuantity({ itemId }));
+      if (quantity === 1) {
+        this.store.dispatch(removeItemFromCart({ itemId }));
+      }
+    }
+  }
   removeItem(itemId: number) {
     this.store.dispatch(removeItemFromCart({ itemId }));
   }
 
-  calculateItemTotal(item: CartItem): number {
-    return item.quantity * parseFloat(this.getItemPrice(item.id));
+  calculateItemTotal(item: any): number {
+    return item.quantity * parseFloat(this.getItemPrice(item.id).substring(1));
   }
 
   getItemPrice(itemId: number): string {
@@ -34,7 +52,7 @@ export class CartComponent {
     return dessert ? dessert.name : '';
   }
 
-  // Define your desserts here or receive them from the parent component
+ 
   desserts = [
     { id: 1, name: 'Waffle with Berries', price: '$6.50' },
     { id: 2, name: 'Vanilla Bean Crème Brûlée', price: '$7.00' },
